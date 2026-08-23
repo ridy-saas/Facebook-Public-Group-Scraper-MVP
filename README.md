@@ -94,6 +94,18 @@ That means the scraper can use a `cookies.json` export from an existing browser 
 - if the session can already see the group content in a browser, the scraper can use that same session state
 - if no authenticated cookies are provided, the supported mode is public groups only
 
+## 獨立社團設定頁
+
+若要用瀏覽器填入社團網址與抓取選項，可啟動本機設定頁：
+
+```bash
+npm run control-panel
+```
+
+開啟 `http://127.0.0.1:4173` 後，填入「社團網址」即可產生本機執行命令。頁面目前負責設定與驗證，不會自動登入 Facebook，也不會上傳或保存 cookies 內容；若需要已登入工作階段，可在欄位填入本機 `cookies.json` 路徑，再於命令列執行產生的命令。
+
+頁面中的「關鍵字」與「近幾天」是 Lead Radar 的後處理篩選條件；原始 scraper 先依社團與貼文上限抓取，日期與關鍵字篩選應在匯入 Lead Radar 時套用。
+
 ## Quick Start
 
 Install dependencies:

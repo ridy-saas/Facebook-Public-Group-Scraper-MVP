@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Facebook 公開社團資料擷取設定頁" />
+    <title>Lead Radar | Facebook 社團</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">LR</div>
+      <div>
+        <p class="eyebrow">LEAD RADAR / SOURCE SETUP</p>
+        <h1>Facebook 公開社團</h1>
+      </div>
+      <span class="mode-chip">公開資料模式</span>
+    </header>
+
+    <main class="workspace">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">獨立資料來源</p>
+        <h2 id="page-title">設定一個要監看的社團</h2>
+        <p>
+          貼上公開社團網址後，頁面會產生對應的抓取設定。抓取器仍會遵守原專案的公開資料與登入工作階段限制。
+        </p>
+      </section>
+
+      <section class="setup-grid" aria-label="社團抓取設定">
+        <form id="group-form" class="form-panel" novalidate>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">TARGET</p>
+              <h3>社團目標</h3>
+            </div>
+            <span class="required-note">* 必填</span>
+          </div>
+
+          <label class="field field-wide" for="group-url">
+            <span>社團網址 *</span>
+            <input
+              id="group-url"
+              name="groupUrl"
+              type="url"
+              inputmode="url"
+              autocomplete="url"
+              placeholder="https://www.facebook.com/groups/440543412776310/"
+              required
+            />
+            <small>只接受 Facebook 社團網址，例如 /groups/440543412776310/。</small>
+          </label>
+
+          <div class="field-row">
+            <label class="field" for="keyword">
+              <span>關鍵字（後處理篩選）</span>
+              <input id="keyword" name="keyword" type="text" placeholder="例如：鶯歌 廠房" />
+            </label>
+            <label class="field" for="days">
+              <span>近幾天</span>
+              <input id="days" name="days" type="number" min="1" max="365" value="7" />
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label class="field" for="max-posts">
+              <span>最多貼文數</span>
+              <input id="max-posts" name="maxPosts" type="number" min="1" max="5000" value="100" />
+            </label>
+            <label class="field" for="cookies-file">
+              <span>登入工作階段檔（選填）</span>
+              <input id="cookies-file" name="cookiesFile" type="text" placeholder="例如：cookies.json" autocomplete="off" />
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <label class="toggle">
+              <input id="no-proxy" name="noProxy" type="checkbox" checked />
+              <span class="toggle-ui" aria-hidden="true"></span>
+              <span>直接連線（不使用代理）</span>
+            </label>
+            <label class="toggle">
+              <input id="analyzer" name="analyzer" type="checkbox" />
+              <span class="toggle-ui" aria-hidden="true"></span>
+              <span>完成後產生 XLSX 分析檔</span>
+            </label>
+          </div>
+
+          <div class="privacy-note">
+            <strong>登入檔案提醒</strong>
+            <span>頁面只會把路徑帶入命令預覽，不會讀取、上傳或儲存 cookies 內容。</span>
+          </div>
+
+          <button class="primary-button" type="submit">建立抓取設定</button>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+        </form>
+
+        <aside class="result-panel" aria-live="polite">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">READY CHECK</p>
+              <h3>執行預覽</h3>
+            </div>
+            <span id="status-badge" class="status-badge">尚未設定</span>
+          </div>
+
+          <div class="target-summary">
+            <span class="summary-label">標準化社團</span>
+            <strong id="normalized-target">尚未輸入</strong>
+          </div>
+
+          <dl class="summary-list">
+            <div><dt>關鍵字</dt><dd id="summary-keyword">未設定</dd></div>
+            <div><dt>日期範圍</dt><dd id="summary-days">近 7 天</dd></div>
+            <div><dt>貼文上限</dt><dd id="summary-posts">100 筆</dd></div>
+          </dl>
+
+          <label class="command-label" for="command-preview">本機執行命令</label>
+          <textarea id="command-preview" rows="5" readonly placeholder="完成設定後，命令會顯示在這裡。"></textarea>
+          <button id="copy-command" class="secondary-button" type="button" disabled>複製命令</button>
+          <p id="copy-status" class="copy-status" role="status"></p>
+
+          <div class="scope-note">
+            <span class="scope-dot" aria-hidden="true"></span>
+            <span>目前範圍：公開社團可見內容。若 Facebook 導向登入或內容不可見，抓取器會回報阻擋狀態。</span>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="footer">Lead Radar · Facebook 公開社團來源 · 本機設定頁</footer>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
